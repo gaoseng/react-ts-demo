@@ -73,5 +73,11 @@
         "component-class-suffix": true,
         "directive-class-suffix": true
       },
-    "rulesDirectory": []
+    "rulesDirectory": [],
+    "linterOptions": {
+        "exclude": [
+            "node_modules/**",
+            "build"
+        ]
+    }
 }

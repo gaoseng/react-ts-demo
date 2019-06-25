@@ -60,7 +60,8 @@ module.exports = {
             // both options are optional
             filename: "[name].css",
             chunkFilename: "[id].css"
-        })
+        }),
+        
     ],
     // externals: {
     //     "react": "React",
