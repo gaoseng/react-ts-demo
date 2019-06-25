@@ -41,6 +41,7 @@
     "rimraf": "^2.6.3",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
+    "ts-loader": "^6.0.4",
     "tslint": "^5.18.0",
     "typescript": "^3.5.2",
     "webpack": "^4.34.0",
