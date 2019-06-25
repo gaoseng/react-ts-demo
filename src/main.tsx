@@ -5,6 +5,11 @@ import { Hello } from "./Hello";
 
 class App extends React.Component {
   test() {
+      let i = 1;
+      let j = 2;
+      if (i == 2) {
+        
+      }
       let x = () => {
           return  1;
       }
