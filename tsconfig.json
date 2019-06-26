@@ -11,7 +11,14 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "experimentalDecorators":true
+    "experimentalDecorators":true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+        "@/*": [
+            "src/*"
+        ]
+    }
   },
   "include": [
     "./src"

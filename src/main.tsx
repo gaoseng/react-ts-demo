@@ -1,10 +1,10 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 import 'antd/dist/antd.css';
-import './main.scss';
 
-import { Hello } from './Hello';
+// import { Hello } from './Hello';
+import AppRouter from './routers';
 
 @hot
 class App extends React.Component {
@@ -20,7 +20,9 @@ class App extends React.Component {
   render() {
     this.test();
     return (
-      <div><Hello compiler='TypeScript' framework='React' /></div>
+      <div className='main'>
+        <AppRouter />
+      </div>
     );
   }
 }

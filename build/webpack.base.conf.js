@@ -18,7 +18,10 @@ module.exports = {
         filename: 'bundle.js',
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js', 'json' ]
+        extensions: [ '.tsx', '.ts', '.js', 'json' ],
+        alias: {
+            '@': resolve('src'),
+        }
       },
     module: {
         rules: [
