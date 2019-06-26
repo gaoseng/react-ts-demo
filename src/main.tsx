@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 import 'antd/dist/antd.css';
+import { Provider } from 'mobx-react';
+import store from './store';
 
 // import { Hello } from './Hello';
 import AppRouter from './routers';
@@ -9,20 +11,15 @@ import AppRouter from './routers';
 @hot
 class App extends React.Component {
   test() {
-    const i = 1;
-    const j = 2;
-    const x = () => {
-      console.log(123);
-      return 1;
-    };
-    x();
+    console.log(store);
   }
   render() {
     this.test();
     return (
-      <div className='main'>
-        <AppRouter />
-      </div>
+      // <div className='main'>
+      //   <AppRouter />
+      // </div>
+      <Provider store={store}><AppRouter /></Provider>
     );
   }
 }

@@ -1,5 +1,5 @@
-import Login from './login/Login';
-import App from './app/App';
+import Login from './login/login.page';
+import App from './app/app.page';
 
 export {
     Login,
