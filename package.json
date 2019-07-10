@@ -13,11 +13,12 @@
     
   },
   "lint-staged": {
-    "src/**/*.js": "tslint"
+    "src/**/*.ts": "tslint",
+    "src/**/*.tsx": "tslint"
   },
   "husky": {
     "hooks": {
-      "precommit": "node tslint"
+      "precommit": "lint-staged"
     }
   },
   "author": "gaosen",
