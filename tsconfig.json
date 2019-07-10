@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "lib": ["es6", "dom"],
+    "lib": ["es2018", "dom"],
     "rootDir": "src",
-    "module": "commonjs",
+    "module": "es2015",
     "target": "es5",
     "sourceMap": true,
     "moduleResolution": "node",
@@ -33,6 +33,7 @@
   ],
   "exclude": [
     "node_modules",
-    "build"
+    "build",
+    "**/*.spec.ts",
   ]
 }
