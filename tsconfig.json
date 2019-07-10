@@ -18,10 +18,18 @@
         "@/*": [
             "src/*"
         ]
-    }
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "@types/jasmine",
+      "@types/node"
+    ],
   },
   "include": [
-    "./src"
+    "./src",
+    "./test"
   ],
   "exclude": [
     "node_modules",

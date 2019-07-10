@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import { Provider } from 'mobx-react';
 import store from './store';
 
@@ -10,11 +10,12 @@ import AppRouter from './routers';
 
 @hot
 class App extends React.Component {
-  test() {
-    console.log(store);
+  test(x: number) {
+    console.log(arguments);
+
   }
   render() {
-    this.test();
+    this.test(1);
     return (
       // <div className='main'>
       //   <AppRouter />
