@@ -11,7 +11,7 @@ import AppRouter from './routers';
 @hot
 class App extends React.Component {
   test(x: number) {
-    console.log(arguments)
+    console.log(arguments);
 
   }
   render() {
