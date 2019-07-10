@@ -9,11 +9,16 @@
     "start": "webpack-dev-server --inline --progress  --config build/webpack.dev.conf.js",
     "build": "node build/build.js",
     "tslint": "tslint --project . src/**/*.ts src/**/*.tsx",
-    "karma": "karma start",
-    "precommit": "lint-staged"
+    "karma": "karma start"
+    
   },
   "lint-staged": {
-    "src/**/*.js": "eslint"
+    "src/**/*.js": "tslint"
+  },
+  "husky": {
+    "hooks": {
+      "precommit": "node tslint"
+    }
   },
   "author": "gaosen",
   "license": "ISC",
