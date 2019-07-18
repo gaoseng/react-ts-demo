@@ -22,9 +22,9 @@ export default class App extends React.Component<PropsType, IState> {
         };
     }
     componentDidMount() {
-        console.log(this.props);
+        // console.log(this.props);
         this.props.store.userInfo.username = 'hh';
-        console.log(this.props.store.userInfo);
+        // console.log(this.props.store.userInfo);
     }
     btnClk = () => {
         this.setState({a: this.state.a + 1 });

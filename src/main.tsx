@@ -4,6 +4,8 @@ import { hot } from 'react-hot-loader/root';
 // import 'antd/dist/antd.css';
 import { Provider } from 'mobx-react';
 import store from './store';
+import axios from 'axios';
+import Mock from 'mockjs';
 
 // import { Hello } from './Hello';
 import AppRouter from './routers';
@@ -12,7 +14,9 @@ import AppRouter from './routers';
 class App extends React.Component {
   test(x: number) {
     console.log(arguments);
-
+    function isObject(value: any) {
+      return value !== null && typeof value === 'object';
+    }
   }
   render() {
     this.test(1);
@@ -24,7 +28,7 @@ class App extends React.Component {
     );
   }
 }
-console.log (App);
+// console.log(App);
 ReactDOM.render(
   <App />,
   document.getElementById('root')

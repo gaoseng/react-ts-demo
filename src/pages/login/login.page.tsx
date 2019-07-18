@@ -13,7 +13,7 @@ interface PropsType {
 
 export default class Login extends React.Component<PropsType, {}> {
     componentDidMount() {
-        console.log(this.props.store.userInfo);
+        // console.log(this.props.store.userInfo);
     }
     render() {
         return (<div>login</div>);

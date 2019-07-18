@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server",
     "start": "webpack-dev-server --inline --progress  --config build/webpack.dev.conf.js",
     "build": "node build/build.js",
-    "tslint": "tslint --project . src/**/*.ts src/**/*.tsx",
+    "tslint": "tslint --fix --project . src/**/*.ts src/**/*.tsx",
     "karma": "karma start"
   },
   "husky": {
@@ -26,6 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^3.20.1",
+    "axios": "^0.19.0",
     "rc-queue-anim": "^1.6.12",
     "rc-tween-one": "^2.4.1",
     "react": "^16.8.6",
@@ -41,6 +42,7 @@
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@types/jasmine": "^3.3.13",
+    "@types/mockjs": "^1.0.2",
     "@types/node": "^12.6.1",
     "@types/react": "^16.8.20",
     "@types/react-dom": "^16.8.4",
@@ -68,6 +70,7 @@
     "mini-css-extract-plugin": "^0.7.0",
     "mobx": "^5.11.0",
     "mobx-react": "^6.1.1",
+    "mockjs": "^1.0.1-beta3",
     "node-notifier": "^5.4.0",
     "node-sass": "^4.12.0",
     "ora": "^3.4.0",
