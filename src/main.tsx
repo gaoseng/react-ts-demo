@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
@@ -9,17 +10,21 @@ import Mock from 'mockjs';
 
 // import { Hello } from './Hello';
 import AppRouter from './routers';
+import { any, object } from 'prop-types';
 
 @hot
 class App extends React.Component {
-  test(x: number) {
-    console.log(arguments);
+  test() {
     function isObject(value: any) {
       return value !== null && typeof value === 'object';
     }
-  }
+      }
   render() {
-    this.test(1);
+    {
+      const x = 0;
+      console.log(x);
+    }
+    this.test();
     return (
       // <div className='main'>
       //   <AppRouter />
@@ -33,3 +38,5 @@ ReactDOM.render(
   <App />,
   document.getElementById('root')
 );
+
+

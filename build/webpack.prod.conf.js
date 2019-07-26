@@ -17,7 +17,8 @@ const webpackConfig = merge(baseWebpackConfig, {
     output: {
         path: config.build.assetsRoot,
         filename: utils.assetsPath('js/[name].[chunkhash].js'),
-        chunkFilename: utils.assetsPath['js/[id].[chunkhash].js']
+        chunkFilename: utils.assetsPath['js/[id].[chunkhash].js'],
+        publicPath: "./"
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -35,7 +36,7 @@ const webpackConfig = merge(baseWebpackConfig, {
             chunksSortMode: 'dependency'
         }),
 
-        // 该插件会根据模块的相对路径生成一个四位数的hash作为模块id, 建议用于生产环境。
+        // 该插件会根据模块的相对路径生成一个四位数的hash作为模块id, 建议用于生产环境。不做改动hash保持不变
         new webpack.HashedModuleIdsPlugin(),
         // 提升编译速度
         new webpack.optimize.ModuleConcatenationPlugin(),
@@ -72,6 +73,15 @@ const webpackConfig = merge(baseWebpackConfig, {
                 }
               }
         }
+    },
+    performance: {
+        // false | "error" | "warning" // 不显示性能提示 | 以错误形式提示 | 以警告...
+        hints: "warning",
+        // 开发环境设置较大防止警告
+        // 根据入口起点的最大体积，控制webpack何时生成性能提示,整数类型,以字节为单位
+        maxEntrypointSize: 5000000, 
+        // 最大单个资源体积，默认250000 (bytes)
+        maxAssetSize: 3000000
     }
 
 });
