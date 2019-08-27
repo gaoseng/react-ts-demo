@@ -7,9 +7,11 @@
     "rules": {
         "array-type": false, // 建议使用T[]方式声明一个数组对象
         "arrow-parens": false,
+        "no-unused-expression": false,
         "deprecation": {
           "severity": "warn"
         },
+        "no-trailing-whitespace": false,
         // "import-blacklist": [
         //   true,
         //   "rxjs/Rx"

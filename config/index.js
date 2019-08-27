@@ -9,7 +9,7 @@ module.exports = {
         proxyTable: {
 
         },
-        host: 'localhost',
+        host: '0.0.0.0',
         port: 8080,
         autoOpenBrowser: false,
         errorOvelay: true,   // 编译出错时，默认大概屏幕覆盖

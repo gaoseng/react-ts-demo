@@ -50,15 +50,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
             filename: 'index.html',
             template: 'index.html',
             inject: true
-          }),
+        }),
         // copy custom static assets
         new CopyWebpackPlugin([
             {
-              from: path.resolve(__dirname, '../static'),
-              to: config.dev.assetsSubDirectory,
-              ignore: ['.*']
+                from: path.resolve(__dirname, '../static'),
+                to: config.dev.assetsSubDirectory,
+                ignore: ['.*']
             }
-          ])
+        ])
     ]
 
 });
@@ -67,18 +67,28 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 module.exports = new Promise((resolve, reject) => {
     portfinder.basePort = process.env.PORT || config.dev.port;
     portfinder.getPort((err, port) => {
-        if( err ) reject(err);
-
+        if (err) reject(err);
+        const interfaces = require('os').networkInterfaces(); // 在开发环境中获取局域网中的本机iP地址
+        let IPAdress = '';
+        for (var devName in interfaces) {
+            var iface = interfaces[devName];
+            for (var i = 0; i < iface.length; i++) {
+                var alias = iface[i];
+                if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal) {
+                    IPAdress = alias.address;
+                }
+            }
+        }
         devWebpackConfig.devServer.port = process.env.PORT = port;
-         devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
-             compilationSuccessInfo: {
-                messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
-                notes: ['开发平台前端服务器已启动，按住ctrl并单击可访问 \r\n ']
-             },
-             onErrors: config.dev.notifyOnErrors
-          ? utils.createNotifierCallback()
-          : undefined,
-         }));
-         resolve(devWebpackConfig);
+        devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
+            compilationSuccessInfo: {
+                messages: [`Your application is running here: http://${IPAdress? IPAdress : 'localhost'}:${port}`],
+                notes: ['前端服务器已启动，按住ctrl并单击可访问 \r\n ']
+            },
+            onErrors: config.dev.notifyOnErrors
+                ? utils.createNotifierCallback()
+                : undefined,
+        }));
+        resolve(devWebpackConfig);
     })
 })
