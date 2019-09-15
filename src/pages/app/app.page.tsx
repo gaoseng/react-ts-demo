@@ -2,8 +2,10 @@ import React, { Ref, RefObject, PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { Store } from '@/store';
-import BarChart from '@/components/Chart/barChart';
-import { PieChart } from '@/components/Chart/pieChart';
+// import BarChart from '@/components/Chart/commonChart';
+// import { PieChart } from '@/components/Chart/pieChart';
+import { ChinaMap, PieChart, CommonChart } from '@/components/Chart';
+import './app.page.scss';
 
 
 interface PropsType {
@@ -14,6 +16,7 @@ interface IState {
   a: number;
   b: number;
 }
+
 const color = ['#609ee9', '#f7ba2a', '#39ca74', '#fc90a6', 
   '#bbadf3', '#48bfe3', '#fca786', '#fe94ea', '#86e1fc', 
   '#496169', '#fa4166', '#39ca74', '#fc90a6', '#bbadf3', '#48bfe3', '#fca786', '#fe94ea', '#86e1fc'];
@@ -131,7 +134,7 @@ export default class App extends React.Component<PropsType, IState> {
       },
     ];
 
-    return (<div >
+    return (<div className='active-replace'>
       {/* <IndexPage />
       <div id='id'></div> */}
       <PieChart
@@ -144,7 +147,7 @@ export default class App extends React.Component<PropsType, IState> {
         }
         // fontColor='white'
       />
-      {/* <BarChart
+      <CommonChart
         dataset={dataset}
         xAxis={xAxis}
         yAxis={yAxis}
@@ -160,11 +163,32 @@ export default class App extends React.Component<PropsType, IState> {
           min: 10
         }}
         // fontColor='white'
-      /> */}
+      />
+      <ChinaMap
+        style={{height: '200px'}}
+        name ='南平市'
+        min={0}
+        max={400}
+        onClick = {this.chartClk}
+        data={[{
+          name: '政和县',
+          value: 100
+      }]}
+      />
       
     </div>);
   }
 }
+
+
+function doSomething() {
+   return  Promise.resolve('ok');
+}
+
+doSomething().then((value) => {
+  console.log(value);
+  return 'test';
+}).then(value => console.log(value));
 
 
 

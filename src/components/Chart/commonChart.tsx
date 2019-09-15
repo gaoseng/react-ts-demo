@@ -8,7 +8,7 @@ interface IProps {
     title?: object; // 标题
     dataset: {
         dimensions: React.ReactText[]; // 展示的每个维度
-        source: any[]
+        source: object[]
     };
     xAxis: object;
     yAxis: object;
@@ -25,7 +25,7 @@ interface IProps {
 }
 type LineType = 'max' | 'min' | 'average';
 
-export default class BarEchart extends React.PureComponent<IProps> {
+export  class CommonChart extends React.PureComponent<IProps> {
     defaultData = {
 
         title: {
@@ -35,7 +35,7 @@ export default class BarEchart extends React.PureComponent<IProps> {
                 color: '#333',
             },
             left: '10px',
-            top: '5px',
+            top: 15,
         },
         legend: {
             type: 'scroll',
@@ -143,7 +143,8 @@ export default class BarEchart extends React.PureComponent<IProps> {
             legend
 
         } = this.props;
-        const myChart = echarts.init(document.getElementById(this.id));
+        const chartDom: HTMLDivElement = document.getElementById(this.id) as HTMLDivElement;
+        const myChart = chartDom && echarts.init(chartDom);
         const option = {
             title: Object.assign(this.defaultData.title, title),
             tooltip: {},
@@ -159,6 +160,11 @@ export default class BarEchart extends React.PureComponent<IProps> {
                 // bottom: 15,
                 containLabel: true
             },
+            dataZoom: [{
+                type: 'inside',
+                show: true,
+                xAxisIndex: 0
+            }],
 
         };
         if (option.series.length > 0) {
@@ -176,10 +182,13 @@ export default class BarEchart extends React.PureComponent<IProps> {
 
 
         });
-        window.onresize = () => {
-            // myChart.onresize();
-            myChart.resize();
-        };
+        // window.onresize = () => {
+        //     // myChart.onresize();
+        //     myChart.resize();
+        // };
+        window.addEventListener('resize', () => {
+            myChart && myChart.resize();
+        });
         window.addEventListener('orientationchange', () => {
             myChart.resize();
         }, false);

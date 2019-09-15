@@ -3,6 +3,7 @@ import echarts from 'echarts';
 import './style.scss';
 
 
+
 interface IProps {
     onClick: (params: any) => void;
     title?: object; // 标题
@@ -37,18 +38,18 @@ export class PieChart extends React.PureComponent<IProps> {
 
         title: {
             textStyle: {
-                fontSize: '16',
-                fontWeight: 700,
+                fontSize: '14',
+                // fontWeight: 400,
                 color: '#333',
             },
             left: '10px',
-            top: '5px',
+            top: 15,
         },
         legend: {
             type: 'scroll',
             // triggerEvent: true,
-            right: '10px',
-            orient: 'vertical',
+            // right: '10px',
+            orient: 'horizontal',
             textStyle: {
                 color: '#333333',
             },
@@ -101,7 +102,8 @@ export class PieChart extends React.PureComponent<IProps> {
             legend
 
         } = this.props;
-        const myChart = echarts.init(document.getElementById(this.id));
+        const chartDom: HTMLDivElement = document.getElementById(this.id) as HTMLDivElement;
+        const myChart =  echarts.init(chartDom);
         const seriesData = Object.assign(this.defaultData.series, series);
         const option = {
             title: Object.assign(this.defaultData.title, title),
@@ -125,11 +127,9 @@ export class PieChart extends React.PureComponent<IProps> {
 
 
         });
-        window.onresize = () => {
-            // myChart.onresize();
-            myChart.resize();
-            console.log(myChart);
-        };
+        window.addEventListener('resize', () => {
+            myChart && myChart.resize();
+        });
         window.addEventListener('orientationchange', () => {
             myChart.resize();
         }, false);
