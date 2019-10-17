@@ -58,6 +58,7 @@ export default class Login extends React.Component<PropsType, {}> {
     }
     render() {
         return (<div>
+            123456789
             <ThemeButton />
         </div>);
     }

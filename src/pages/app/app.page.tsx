@@ -1,11 +1,10 @@
-import React, { Ref, RefObject, PureComponent } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Context } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { Store } from '@/store';
-// import BarChart from '@/components/Chart/commonChart';
-// import { PieChart } from '@/components/Chart/pieChart';
-import { ChinaMap, PieChart, CommonChart } from '@/components/Chart';
 import './app.page.scss';
+import { Button } from 'antd';
+import { LongPress } from '@/utils';
 
 
 interface PropsType {
@@ -13,182 +12,105 @@ interface PropsType {
 }
 
 interface IState {
-  a: number;
-  b: number;
+  data: object[];
 }
 
-const color = ['#609ee9', '#f7ba2a', '#39ca74', '#fc90a6', 
-  '#bbadf3', '#48bfe3', '#fca786', '#fe94ea', '#86e1fc', 
-  '#496169', '#fa4166', '#39ca74', '#fc90a6', '#bbadf3', '#48bfe3', '#fca786', '#fe94ea', '#86e1fc'];
+// function Test() {
+//   return {
+//     a: 'x'
+//   };
+// }
 
-class Child extends React.Component<{ content: string }, {}> {
-  render() {
-    console.log(this.props.children);
-    return (<div>123</div>);
-  }
+// let x: typeof Test = () => ({
+//   a: '2'
+// });
+
+// let y = 2;
+interface MouseProps {
+  children: (param: MouseState) => JSX.Element;
 }
+interface MouseState {
+  x: number;
+  y: number;
+}
+class Mouse extends React.Component<MouseProps, MouseState> {
+  state = { x: 0, y: 0 };
 
-class IndexPage extends PureComponent<{}, {}> {
-  state = {
-    arr: ['1']
-  };
-  constructor(props: Readonly<{}>) {
-    super(props);
-    console.log('constructor');
-  }
-  changeState = () => {
-    const { arr } = this.state;
-    arr.pop();
-    arr.push('2');
-    console.log(arr);
-    // ["1", "2"]
-    //  ["1", "2", "2"]
-    //  ["1", "2", "2", "2"]
-    // ....
+
+  handleMouseMove = (event: any) => {
     this.setState({
-      arr
+      x: event.clientX,
+      y: event.clientY
     });
   }
+
+  renderItem() {
+    return React.createElement('div', 1, () => {
+
+    });
+  }
+
   render() {
-    console.log(1);
-    const x = 2;
-    console.log('render');
     return (
-      <div>
-        <button onClick={this.changeState}>点击</button>
-        <div>
-          {this.state.arr.map((item) => {
-            return item;
-          })}
-        </div>
+      <div style={{ height: '100%' }} onMouseMove={this.handleMouseMove}>
+        {this.props.children(this.state)}
       </div>
     );
   }
 }
 
+
+
+const ThemeContext = React.createContext('light');
+
+type Text = typeof ThemeContext;
+
+
+console.log(Text);
 @inject('store')
 @observer
 export default class App extends React.Component<PropsType, IState> {
-  myRef: any;
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      a: 1,
-      b: 2
-    };
-    this.myRef = React.createRef();
-    console.log(React);
-  }
+  state = {
+    data: [{
+      key: 'china',
+      value: '中国'
+    }, {
+      key: 'jpan',
+      value: '日本'
+    }
+    ]
+  };
   componentDidMount() {
-    // console.log(this.props);
-    this.props.store.userInfo.username = 'hh';
-    // console.log(this.props.store.userInfo);
-    // console.log(this.myRef);
-  }
-  btnClk = () => {
-    this.setState({ a: this.state.a + 1 });
-  }
-  chartClk = (param: any) => {
-    console.log(param);
+    const ele: HTMLDivElement = document.getElementById('main') as HTMLDivElement;
+
   }
   render() {
-    const dataset = {
-      dimensions: ['product', '2015', '2016', '2017', '2018'],
-      source: [
-        { product: 'Matcha Latte', 2015: 43.3, 2016: 85.8, 2017: 93.7, 2018: 93.7  },
-        { product: 'Milk Tea', 2015: 83.1, 2016: 73.4, 2017: 55.1, 2018: 13.7  },
-        { product: 'Cheese Cocoa', 2015: 86.4, 2016: 65.2, 2017: 82.5, 2018: 43.7  },
-        { product: 'Walnut Brownie', 2015: 72.4, 2016: 53.9, 2017: 39.1, 2018: 73.7  }
-      ]
-    };
-    const xAxis = { type: 'category' };
-    const yAxis = {};
-    const series = [
-      {
-        type: 'bar', 
-        barMaxWidth: '30%', 
-        smooth: true,
-        symbol: 'circle',
-        symbolSize: 15,
-        color: color[0],
-      //   symbolSize(data: any) {
-      //     // debugger;
-      //     return 10 * 3 ;
-      // },
-      },
-      {
-        type: 'bar', 
-        barMaxWidth: '30%', 
-        smooth: true,
-        symbol: 'circle',
-        symbolSize: 15,
-        color: color[1]
-      },
-      {
-        type: 'bar', 
-        barMaxWidth: '30%', 
-        smooth: true,
-        symbol: 'circle',
-        symbolSize: 15,
-        color: color[2]
-      },
-    ];
-
     return (<div className='active-replace'>
-      {/* <IndexPage />
-      <div id='id'></div> */}
-      <PieChart
-        dataset={dataset}
-        // series={seriesPie}
-        onClick={this.chartClk}
-        style={{ width: '100%', height: '500px'}}
-        title={
-          { text: '本业经营情况' }
-        }
-        // fontColor='white'
-      />
-      <CommonChart
-        dataset={dataset}
-        xAxis={xAxis}
-        yAxis={yAxis}
-        series={series}
-        onClick={this.chartClk}
-        style={{ width: '100%', height: '300px'}}
-        title={
-          { text: '本业经营情况' }
-        }
-        markLineObj={{
-          average: 80,
-          max: 150,
-          min: 10
-        }}
-        // fontColor='white'
-      />
-      <ChinaMap
-        style={{height: '200px'}}
-        name ='南平市'
-        min={0}
-        max={400}
-        onClick = {this.chartClk}
-        data={[{
-          name: '政和县',
-          value: 100
-      }]}
-      />
+      <Link to='/login' >124</Link>
+      <Button type='primary' {...LongPress((e) => {
+        console.log(e);
+      })}>press event</Button>
       
+      {/* <Mouse >
+        {
+          (state) => {
+            console.log(state);
+            return <div>123</div>;
+          }
+        }
+      </Mouse> */}
     </div>);
   }
 }
 
 
-function doSomething() {
-   return  Promise.resolve('ok');
-}
 
-doSomething().then((value) => {
-  console.log(value);
-  return 'test';
-}).then(value => console.log(value));
+
+
+
+
+
+
 
 
 

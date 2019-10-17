@@ -21,6 +21,7 @@ module.exports = {
         extensions: [ '.tsx', '.ts', '.js', 'json' ],
         alias: {
             '@': resolve('src'),
+            '@scss': resolve('src/styles/common/index.scss')
         }
       },
     module: {

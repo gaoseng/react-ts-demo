@@ -1,4 +1,4 @@
-
+@import '~@scss';
 @keyframes zoomIn {
     from {
       opacity: 0;
@@ -13,4 +13,6 @@
     animation-name: zoomIn;
     animation-duration: 0.4s;
     animation-fill-mode: none;
+    background-color: var(--theme);
+    color: $text;
 }
