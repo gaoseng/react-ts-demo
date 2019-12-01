@@ -30,6 +30,7 @@ const ThemeContext = React.createContext(
 class ThemeButton extends React.Component<{}, {}> {
     render() {
         const props = this.props;
+        // tslint:disable-next-line: deprecation
         const theme = this.context;
         console.log(theme);
         return (
@@ -45,20 +46,9 @@ ThemeButton.contextType = ThemeContext;
 
 @inject('store')
 @observer
-
 export default class Login extends React.Component<PropsType, {}> {
-
-    myRef: React.RefObject<HTMLDivElement>;
-    constructor(props: Readonly<PropsType>) {
-        super(props);
-        console.log(1111111111111111);
-    }
-    componentDidMount() {
-        console.log(this.myRef);
-    }
     render() {
         return (<div>
-            123456789
             <ThemeButton />
         </div>);
     }

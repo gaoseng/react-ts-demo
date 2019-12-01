@@ -5,84 +5,43 @@ import { Store } from '@/store';
 import './app.page.scss';
 import { Button } from 'antd';
 import { LongPress } from '@/utils';
+import { SlotContainer } from '@/components/slots/slot-container';
+import { TopSlot } from '@/components/slots/top-slot';
+import { MainSlot } from '@/components/slots/main-slot';
+import { BottomSlot } from '@/components/slots/bottom-slot';
 
 
+const AppContext = React.createContext<string>('test');
+const SubAppContext = React.createContext<string>('subTest');
 interface PropsType {
   store: Store;
 }
-
-interface IState {
-  data: object[];
-}
-
-// function Test() {
-//   return {
-//     a: 'x'
-//   };
-// }
-
-// let x: typeof Test = () => ({
-//   a: '2'
-// });
-
-// let y = 2;
-interface MouseProps {
-  children: (param: MouseState) => JSX.Element;
-}
-interface MouseState {
-  x: number;
-  y: number;
-}
-class Mouse extends React.Component<MouseProps, MouseState> {
-  state = { x: 0, y: 0 };
-
-
-  handleMouseMove = (event: any) => {
-    this.setState({
-      x: event.clientX,
-      y: event.clientY
-    });
-  }
-
-  renderItem() {
-    return React.createElement('div', 1, () => {
-
-    });
-  }
-
+class Child extends React.Component {
+  static contextType = {...AppContext, ...SubAppContext };
+  context: string;
   render() {
-    return (
-      <div style={{ height: '100%' }} onMouseMove={this.handleMouseMove}>
-        {this.props.children(this.state)}
-      </div>
-    );
+    console.log(this.context);
+    return <div>child</div>;
   }
 }
-
-
-
-const ThemeContext = React.createContext('light');
-
-type Text = typeof ThemeContext;
-
-
-console.log(Text);
+class SubApp extends React.Component {
+  render() {
+    return <SubAppContext.Provider value='subApp'>
+      <Child></Child>
+    </SubAppContext.Provider>;
+  }
+}
 @inject('store')
 @observer
-export default class App extends React.Component<PropsType, IState> {
-  state = {
-    data: [{
-      key: 'china',
-      value: '中国'
-    }, {
-      key: 'jpan',
-      value: '日本'
-    }
-    ]
-  };
-  componentDidMount() {
-    const ele: HTMLDivElement = document.getElementById('main') as HTMLDivElement;
-
+export default class App extends React.Component<PropsType> {
+  getTop = () => {
+    return <TopSlot title={'slot top'} />;
+  }
+  getMain = () => {
+    return <MainSlot content={'main'} />;
+  }
+  getBottom = () => {
+    return <BottomSlot content={'bottom'} />;
   }
   render() {
     return (<div className='active-replace'>
@@ -91,17 +50,24 @@ export default class App extends React.Component<PropsType, IState> {
         console.log(e);
       })}>press event</Button>
       
-      {/* <Mouse >
-        {
-          (state) => {
-            console.log(state);
-            return <div>123</div>;
-          }
-        }
-      </Mouse> */}
+      <SlotContainer
+        top={this.getTop()}
+        main={this.getMain()}
+        bottom={this.getBottom()}
+        obj={{test: 123}}
+      >
+        {() => <>123</>}
+      </SlotContainer>
+
+      <AppContext.Provider value='app'>
+        <SubApp />
+      </AppContext.Provider>
+
     </div>);
   }
 }
+
+
 
 
 
